@@ -1,21 +1,21 @@
 {
-  "name": "swa-auth",
-  "version": "1.0.5",
-  "description": "A super-lightweight Auth library for Azure Static Web Apps.",
+  "name": "msal-authorize",
+  "version": "0.0.1",
+  "description": "A fork of swa-auth providing useful components for authorizing client principals based on the application roles brought back by MSAL.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "git@github.com:tcc-sejohnson/swa-auth.git",
+  "repository": "",
   "keywords": [
     "Azure",
     "Static Web Apps",
-    "Auth"
+    "Authorization"
   ],
   "author": "S. Elliott Johnson",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/tcc-sejohnson/swa-auth/issues"
+    "url": "git@github.com:tcc-sejohnson/msal-authorize.git/issues"
   },
-  "homepage": "https://github.com/tcc-sejohnson/swa-auth/issues#readme",
+  "homepage": "git@github.com:tcc-sejohnson/msal-authorize.git#readme",
   "private": false,
   "files": [
     "dist/**/*"
@@ -30,6 +30,8 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
+    "@azure/msal-browser": "^2.11.2",
+    "@azure/msal-react": "^1.0.0-alpha.6",
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-router-dom": "^5.2.0"

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Roles } from '../../../auth/auth';
+import { Roles } from '../../auth/auth';
 import { Route, RouteProps } from 'react-router-dom';
-import ProtectedComponent from '../../private_components/ProtectedComponent';
+import ProtectedComponent from '../private_components/ProtectedComponent';
 
 export interface ProtectedRouteProps {
+  userRoles: Roles;
   allowedRoles: Roles;
   allBut?: boolean;
+  isAuthenticating: boolean;
   authenticatingComponent?: JSX.Element;
   redirect: JSX.Element;
   children: React.ReactNode;
@@ -16,8 +18,10 @@ export interface ProtectedRouteProps {
  * else renders the redirect element.
  */
 const ProtectedRoute: React.VFC<ProtectedRouteProps & RouteProps> = ({
+  userRoles,
   allowedRoles,
   allBut,
+  isAuthenticating,
   authenticatingComponent,
   redirect,
   children,
@@ -28,8 +32,10 @@ const ProtectedRoute: React.VFC<ProtectedRouteProps & RouteProps> = ({
       {...rest}
       render={() => (
         <ProtectedComponent
+          userRoles={userRoles}
           allowedRoles={allowedRoles}
           allBut={allBut}
+          isAuthenticating={isAuthenticating}
           authenticatingComponent={authenticatingComponent}
           unauthorizedComponent={redirect}
         >

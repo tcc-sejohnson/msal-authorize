@@ -1,30 +1,34 @@
 import React from 'react';
 import { Redirect, RouteProps } from 'react-router-dom';
-import { Roles } from '../../../auth/auth';
-import { useAuthRoutes } from '../routers/AuthRouter';
+import { Roles } from '../../auth/auth';
 import ProtectedRoute from './ProtectedRoute';
 
-export interface LoginRedirectRouteProps {
+export interface UnauthorizedRedirectRouteProps {
+  userRoles: Roles;
   allowedRoles: Roles;
   allBut?: boolean;
+  isAuthenticating: boolean;
   authenticatingComponent?: JSX.Element;
   children: React.ReactNode;
 }
 
-const LoginRedirectRoute: React.VFC<LoginRedirectRouteProps & RouteProps> = ({
+const UnauthorizedRedirectRoute: React.VFC<UnauthorizedRedirectRouteProps & RouteProps> = ({
+  userRoles,
   allowedRoles,
   allBut,
+  isAuthenticating,
   authenticatingComponent,
   children,
   ...rest
-}: LoginRedirectRouteProps & RouteProps) => {
-  const loginRoute = useAuthRoutes().loginRoute;
+}: UnauthorizedRedirectRouteProps & RouteProps) => {
   return (
     <ProtectedRoute
+      userRoles={userRoles}
       allowedRoles={allowedRoles}
       allBut={allBut}
+      isAuthenticating={isAuthenticating}
       authenticatingComponent={authenticatingComponent}
-      redirect={<Redirect to={loginRoute} />}
+      redirect={<Redirect to="/unauthorized" />}
       {...rest}
     >
       {children}
@@ -32,4 +36,4 @@ const LoginRedirectRoute: React.VFC<LoginRedirectRouteProps & RouteProps> = ({
   );
 };
 
-export default LoginRedirectRoute;
+export default UnauthorizedRedirectRoute;

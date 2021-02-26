@@ -3,8 +3,10 @@ import { Roles } from '../../auth/auth';
 import ProtectedComponent from './ProtectedComponent';
 
 export interface HiddenComponentProps {
+  userRoles: Roles;
   allowedRoles: Roles;
   allBut?: boolean;
+  isAuthenticating: boolean;
   authenticatingComponent?: JSX.Element;
   children: React.ReactNode;
 }
@@ -15,15 +17,19 @@ export interface HiddenComponentProps {
  * classes of user.
  */
 const HiddenComponent = ({
+  userRoles,
   allowedRoles,
   allBut,
+  isAuthenticating,
   authenticatingComponent,
   children,
 }: HiddenComponentProps): JSX.Element => {
   return (
     <ProtectedComponent
+      userRoles={userRoles}
       allowedRoles={allowedRoles}
       allBut={allBut}
+      isAuthenticating={isAuthenticating}
       authenticatingComponent={authenticatingComponent}
       unauthorizedComponent={<></>}
     >

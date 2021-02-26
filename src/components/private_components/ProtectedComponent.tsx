@@ -1,9 +1,10 @@
 import React from 'react';
-import { useAuth, authorize, Roles } from '../../auth/auth';
-
+import { Roles, authorize } from '../../auth/auth';
 export interface ProtectedComponentProps {
+  userRoles: Roles;
   allowedRoles: Roles;
   allBut?: boolean;
+  isAuthenticating: boolean;
   unauthorizedComponent: JSX.Element;
   authenticatingComponent?: JSX.Element;
   children: React.ReactNode;
@@ -15,17 +16,18 @@ export interface ProtectedComponentProps {
  * classes of user.
  */
 const ProtectedComponent: React.FC<ProtectedComponentProps> = ({
+  userRoles,
   allowedRoles,
   allBut,
+  isAuthenticating,
   unauthorizedComponent,
   authenticatingComponent,
   children,
 }) => {
-  const auth = useAuth();
-  if (auth.isAuthenticating) {
+  if (isAuthenticating) {
     return authenticatingComponent ?? <div>Authenticating, please wait...</div>;
   }
-  const isAuthorized = authorize(allowedRoles, auth.user, allBut);
+  const isAuthorized = authorize(allowedRoles, userRoles, allBut);
   return isAuthorized ? <>{children}</> : unauthorizedComponent;
 };
 
